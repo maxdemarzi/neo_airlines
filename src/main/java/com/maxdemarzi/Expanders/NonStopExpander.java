@@ -5,6 +5,7 @@ import org.neo4j.graphdb.*;
 import org.neo4j.graphdb.traversal.BranchState;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class NonStopExpander extends BaseExpander {
     public NonStopExpander(ArrayList<String> destinations,  RelationshipType[] relationshipTypes, long stopTime) {
@@ -20,20 +21,20 @@ public class NonStopExpander extends BaseExpander {
                 case 1: {
                     Node lastNode = path.endNode();
                     if (destinations.contains((String) lastNode.getProperty("code"))) {
-                        return path.endNode().getRelationships(Direction.BOTH, relationshipTypes);
+                        return path.endNode().getRelationships(Direction.OUTGOING, relationshipTypes);
                     } else {
-                        return path.endNode().getRelationships(RelationshipTypes.DOES_NOT_EXIST);
+                        return Collections.emptyList();
                     }
                 }
                  case 2:
                  case 3: {
-                     return path.endNode().getRelationships(Direction.BOTH, relationshipTypes);
+                     return path.endNode().getRelationships(Direction.OUTGOING, relationshipTypes);
                  }
                 default:
-                    return path.endNode().getRelationships(RelationshipTypes.DOES_NOT_EXIST);
+                    return Collections.emptyList();
             }
         } else {
-            return path.endNode().getRelationships(RelationshipTypes.DOES_NOT_EXIST);
+            return Collections.emptyList();
         }
     }
 

@@ -29,6 +29,6 @@ public class ReachedDestinationAtEvaluator implements Evaluator {
         } else if (destinations.contains( ((String)lastNode.getProperty("key")).substring(0,3) )) {
             return Evaluation.INCLUDE_AND_PRUNE;
         }
-        return Evaluation.EXCLUDE_AND_CONTINUE;
+        return Evaluation.EXCLUDE_AND_PRUNE;
     }
 }

@@ -5,6 +5,7 @@ import org.neo4j.graphdb.*;
 import org.neo4j.graphdb.traversal.BranchState;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 public class TwoStopExpander extends BaseExpander {
@@ -25,7 +26,7 @@ public class TwoStopExpander extends BaseExpander {
                     Node lastNode = path.endNode();
                     if (destinations.contains(((String) lastNode.getProperty("code"))) ||
                             exclusions.contains((String) lastNode.getProperty("code"))) {
-                        return path.endNode().getRelationships(RelationshipTypes.DOES_NOT_EXIST);
+                        return Collections.emptyList();
                     } else {
                         return path.endNode().getRelationships(Direction.OUTGOING, relationshipTypes);
                     }
@@ -41,7 +42,7 @@ public class TwoStopExpander extends BaseExpander {
                 case 4: {
                     Node lastNode = path.endNode();
                     if (destinations.contains(((String) lastNode.getProperty("code")))) {
-                        return path.endNode().getRelationships(RelationshipTypes.DOES_NOT_EXIST);
+                        Collections.emptyList();
                     } else {
                         return path.endNode().getRelationships(Direction.OUTGOING, relationshipTypes);
                     }
@@ -52,7 +53,7 @@ public class TwoStopExpander extends BaseExpander {
                     if (destinations.contains(((String) lastNode.getProperty("code")))) {
                         return path.endNode().getRelationships(Direction.OUTGOING, relationshipTypes);
                     } else {
-                        return path.endNode().getRelationships(RelationshipTypes.DOES_NOT_EXIST);
+                        return Collections.emptyList();
                     }
                 }
                 case 5: {
@@ -63,11 +64,11 @@ public class TwoStopExpander extends BaseExpander {
                     Node lastFlight = nodes.next();
 
                     if (((Long) lastFlight.getProperty("arrives") + minimumConnectTime) > (Long) lastNode.getProperty("departs")) {
-                        return path.endNode().getRelationships(RelationshipTypes.DOES_NOT_EXIST);
+                        return Collections.emptyList();
                     }
 
                     if (lastNode.getProperty("code").equals(lastFlight.getProperty("code"))) {
-                        return path.endNode().getRelationships(RelationshipTypes.DOES_NOT_EXIST);
+                        return Collections.emptyList();
                     } else {
                         return path.endNode().getRelationships(Direction.OUTGOING, relationshipTypes);
                     }
@@ -83,16 +84,16 @@ public class TwoStopExpander extends BaseExpander {
                     Node lastFlight = nodes.next();
 
                     if (((Long) lastFlight.getProperty("arrives") + minimumConnectTime) > (Long) lastNode.getProperty("departs")) {
-                        return path.endNode().getRelationships(RelationshipTypes.DOES_NOT_EXIST);
+                        return Collections.emptyList();
                     } else {
                         return path.endNode().getRelationships(Direction.OUTGOING, relationshipTypes);
                     }
                 }
                 default:
-                    return path.endNode().getRelationships(RelationshipTypes.DOES_NOT_EXIST);
+                    return Collections.emptyList();
             }
         } else {
-            return path.endNode().getRelationships(RelationshipTypes.DOES_NOT_EXIST);
+            return Collections.emptyList();
         }
     }
 

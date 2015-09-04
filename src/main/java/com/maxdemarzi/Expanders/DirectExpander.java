@@ -5,6 +5,7 @@ import org.neo4j.graphdb.*;
 import org.neo4j.graphdb.traversal.BranchState;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 public class DirectExpander extends BaseExpander {
@@ -23,7 +24,7 @@ public class DirectExpander extends BaseExpander {
                     Node lastNode = path.endNode();
                     if (destinations.contains(((String) lastNode.getProperty("code"))) ||
                             exclusions.contains((String) lastNode.getProperty("code"))) {
-                        return path.endNode().getRelationships(RelationshipTypes.DOES_NOT_EXIST);
+                        return Collections.emptyList();
                     } else {
                         return path.endNode().getRelationships(Direction.OUTGOING, relationshipTypes);
                     }
@@ -37,9 +38,9 @@ public class DirectExpander extends BaseExpander {
                 case 4: {
                     Node lastNode = path.endNode();
                     if (destinations.contains(((String) lastNode.getProperty("code")))) {
-                        return path.endNode().getRelationships(Direction.BOTH, relationshipTypes);
+                        return path.endNode().getRelationships(Direction.OUTGOING, relationshipTypes);
                     } else {
-                        return path.endNode().getRelationships(RelationshipTypes.DOES_NOT_EXIST);
+                        return Collections.emptyList();
                     }
                 }
                 case 5: {
@@ -51,14 +52,14 @@ public class DirectExpander extends BaseExpander {
                     if (lastNode.getProperty("code").equals(lastFlight.getProperty("code"))) {
                         return path.endNode().getRelationships(Direction.OUTGOING, relationshipTypes);
                     } else {
-                        return path.endNode().getRelationships(RelationshipTypes.DOES_NOT_EXIST);
+                        return Collections.emptyList();
                     }
                 }
                 default:
-                    return path.endNode().getRelationships(RelationshipTypes.DOES_NOT_EXIST);
+                    return Collections.emptyList();
             }
         } else {
-            return path.endNode().getRelationships(RelationshipTypes.DOES_NOT_EXIST);
+            return Collections.emptyList();
         }
     }
 
