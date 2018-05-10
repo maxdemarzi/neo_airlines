@@ -108,7 +108,7 @@ public class Service {
         // Add High Priority Airlines to be checked first, and then add the rest
         Set<RelationshipType> orderedFlightTypes = new ListOrderedSet<>();
         for ( String airline : (ArrayList<String>)input.get("airlines")) {
-            orderedFlightTypes.add(DynamicRelationshipType.withName(airline + "_FLIGHT"));
+            orderedFlightTypes.add(RelationshipType.withName(airline + "_FLIGHT"));
         }
 
         // Adding full list of Airlines, duplicates do not affect original ordering
@@ -200,7 +200,7 @@ public class Service {
             }
         }
 
-        Collections.sort(results, FLIGHT_COMPARATOR);
+        results.sort(FLIGHT_COMPARATOR);
 
         return Response.ok().entity(objectMapper.writeValueAsString(results)).build();
     }
@@ -221,7 +221,7 @@ public class Service {
                 Long distance = 0L;
                 for (Node flight : position.nodes()) {
                     if (flight.hasLabel(Labels.Flight)) {
-                        HashMap flightInfo = new HashMap();
+                        HashMap<String, Object> flightInfo = new HashMap<>();
                         for (String property : flight.getPropertyKeys()) {
                             flightInfo.put(property, flight.getProperty(property));
                         }

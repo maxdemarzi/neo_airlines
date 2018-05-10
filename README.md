@@ -15,7 +15,7 @@ Modeling and Querying Flight Data
 
 4. Configure Neo4j by adding a line to conf/neo4j-server.properties:
 
-        org.neo4j.server.thirdparty_jaxrs_classes=com.maxdemarzi=/v1
+        dbms.unmanaged_extension_classes=com.maxdemarzi=/v1
 
         
 5. Start Neo4j server.

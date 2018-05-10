@@ -9,18 +9,9 @@
     <version>1.0</version>
 
     <properties>
-        <neo4j.version>2.3-SNAPSHOT</neo4j.version>
+        <neo4j.version>3.3.5</neo4j.version>
         <junit.version>4.12</junit.version>
-        <joda.version>2.7</joda.version>
-        <guava.version>19.0</guava.version>
     </properties>
-
-    <repositories>
-        <repository>
-            <id>neo4j</id>
-            <url>http://m2.neo4j.org/content/repositories/snapshots</url>
-        </repository>
-    </repositories>
 
     <dependencies>
         <dependency>
